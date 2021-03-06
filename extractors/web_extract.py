@@ -39,7 +39,11 @@ from utils.common import register_extractor, extractor_main
 
 browser = which('C:/Program Files (x86)/Google/Chrome/Application/chrome.exe') or \
           which('C:/Program Files/Google/Chrome/Application/chrome.exe') or \
-          which('chromium-browser') or which('chromium') or which('chrome') or 'google-chrome'
+          which('chromium-browser') or which('chromium') or which('chrome') or \
+          which('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome') or \
+          which('/Applications/Chromium.app/Contents/MacOS/Chromium') or \
+          which('Google Chrome') or which('Chromium') or \
+          'google-chrome'
 
 @register_extractor(name = 'pburl_extract',
                     desc = 'Extract and capture Protobuf-URL endpoints from a Chrome instance (http://*)',
