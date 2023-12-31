@@ -79,7 +79,8 @@ def pburl_extract(url):
                     tabs = urlopen('http://localhost:%d/json' % port).read().decode('utf8')
                     tab = next(tab for tab in loads(tabs) if tab['type'] == 'page')
                     break
-                except OSError:
+                except Exception as ex:
+                    print(ex)
                     sleep(0.1)
             
             from websocket import WebSocketApp
@@ -88,10 +89,15 @@ def pburl_extract(url):
             ws = WebSocketApp(tab['webSocketDebuggerUrl'],
                               on_message=on_message,
                               on_open=on_open).run_forever()
+        except Exception as ex:
+            print(ex)
+                
         
         finally:
             # Make sure that Chromium is killed when quitting by error
             chrome.terminate()
+            
+            print("BROWSER CLOSED")
             
             # Avoid race condition with it writing to profile directory
             sleep(0.2)
